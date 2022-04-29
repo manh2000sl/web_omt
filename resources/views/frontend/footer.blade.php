@@ -1,4 +1,3 @@
-@section('footer')
 <div class="bg2 p-t-40 p-b-25">
     <div class="container">
         <div class="row">
@@ -150,4 +149,3 @@
         </div>
     </div>
 </div>
-    @endsection()

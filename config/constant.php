@@ -1,0 +1,7 @@
+<?php
+
+define('ID_TOPIC_CHINH_TRI', 13);
+define('ID_TOPIC_KHOA_HOC', 26);
+define('ID_TOPIC_DOI_SONG', 29);
+define('LIMIT_OF_POST_IN_DASHBOARD', 4);
+define('LIMIT_OF_POST_NEW_IN_DASHBOARD', 8);

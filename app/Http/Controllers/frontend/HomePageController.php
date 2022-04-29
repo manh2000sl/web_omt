@@ -19,6 +19,7 @@ class HomePageController extends Controller
         $this->Post = $post;
         $this->User = $user;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,31 +27,21 @@ class HomePageController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::where('highlight', '=', '1')->orderBy('updated_at', 'desc')->limit(4)->get();
-
-        $topics = Topic::all();
+        $topics = Topic::whereIn('id', [ID_TOPIC_CHINH_TRI, ID_TOPIC_KHOA_HOC, ID_TOPIC_DOI_SONG])->get();
 
         //danh sách bài viết chính trị
-        $topics13 = Topic::find(13);
-        $postOfId13 = $topics13->Post()->where('status', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-        //danh sách bài viết Khoa học
-        $topics26 = Topic::find(26);
-        $postOfId26 = $topics26->Post()->where('status', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-        //danh sách bài viết Đời sống
-        $topics29 = Topic::find(29);
-        $postOfId29 = $topics29->Post()->where('status', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-        $postNews = Post::where('status', '=', '1')->orderBy('id', 'desc')->paginate(8);
-//        if($request->ajax())
-//        {
-//            $html= view('frontend.new_post',compact('postNews'))->render();
-//            return response(['html'=>$html]);
-//        }
+        $topics13 = $topics->where('id', ID_TOPIC_CHINH_TRI)->first();
+        $postOfId13 = Post::where('topic', ID_TOPIC_CHINH_TRI)->where('status', '=', '1')->orderBy('id', 'desc')->with('author')->limit(LIMIT_OF_POST_IN_DASHBOARD)->get();
 
-        return view('frontend.main', compact('posts', 'topics', 'topics13', 'postOfId13',
-            'topics26', 'postOfId26',
-            'topics29', 'postOfId29',
-            'postNews',
-        ));
+        //danh sách bài viết Khoa học
+        $topics26 = $topics->where('id', ID_TOPIC_KHOA_HOC)->first();
+        $postOfId26 = Post::where('topic', ID_TOPIC_KHOA_HOC)->where('status', '=', '1')->orderBy('id', 'desc')->with('author')->limit(LIMIT_OF_POST_IN_DASHBOARD)->get();
+
+        //danh sách bài viết Đời sống
+        $topics29 = $topics->where('id', ID_TOPIC_DOI_SONG)->first();
+        $postOfId29 = Post::where('topic', ID_TOPIC_DOI_SONG)->where('status', '=', '1')->orderBy('id', 'desc')->with('author')->limit(LIMIT_OF_POST_IN_DASHBOARD)->get();
+
+        return view('frontend.dashboard', compact('topics13', 'postOfId13', 'topics26', 'postOfId26', 'topics29', 'postOfId29'));
     }
 
     /**
@@ -60,33 +51,8 @@ class HomePageController extends Controller
      */
     public function detail($slug)
     {
-        $post = Post::where('slug', '=', $slug)->first();
-        $posts = Post::where('highlight', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-        $topics_1 = Topic::where('slug', '=', $slug)->first();
-        $topics = Topic::all();
-        $topics13 = Topic::find(13);
-        $postOfId13 = $topics13->Post()->where('status', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-        //danh sách bài viết Khoa học
-        $topics26 = Topic::find(26);
-        $postOfId26 = $topics26->Post()->where('status', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-        //danh sách bài viết Đời sống
-        $topics29 = Topic::find(29);
-        $postOfId29 = $topics29->Post()->where('status', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-//        $postOfIds = $topics_1->Post()->where('status', '=', '1')->orderBy('id', 'desc')->get();
-        $postNews = Post::orderBy('id', 'desc')->paginate(6);
-        return view('frontend.post_detail', compact('topics_1', 'topics', 'topics13', 'topics26', 'postOfId26',
-            'topics29', 'postOfId29', 'postOfId13', 'posts', 'postNews', 'post'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $post = Post::where('slug', '=', $slug)->with('toTopic')->first();
+        return view('frontend.post_detail', compact('post'));
     }
     /**
      * Display the specified resource.
@@ -96,56 +62,12 @@ class HomePageController extends Controller
      */
     public function show($slug)
     {
-        $posts = Post::where('highlight', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-
-        $topics_1 = Topic::where('slug', '=', $slug)->first();
-        $topics = Topic::all();
-        $postOfIds = $topics_1->Post()->where('status', '=', '1')->orderBy('id', 'desc')->get();
-        $topics13 = Topic::find(13);
-        $postOfId13 = $topics13->Post()->where('status', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-        //danh sách bài viết Khoa học
-        $topics26 = Topic::find(26);
-        $postOfId26 = $topics26->Post()->where('status', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-        //danh sách bài viết Đời sống
-        $topics29 = Topic::find(29);
-        $postOfId29 = $topics29->Post()->where('status', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
-//        $postOfIds = $topics_1->Post()->where('status', '=', '1')->orderBy('id', 'desc')->get();
-        $postNews = Post::orderBy('id', 'desc')->paginate(6);
-        return view('frontend.list_post', compact('postOfIds', 'topics_1', 'topics', 'topics13', 'topics26', 'postOfId26',
-            'topics29', 'postOfId29', 'postOfId13', 'posts', 'postNews'));
+        $topics_info = Topic::where('slug', '=', $slug)->first();
+        $postOfIds = [];
+        if (!empty($topics_info)) {
+            $postOfIds = Post::where('topic', $topics_info->id)->where('status', '=', '1')->orderBy('id', 'desc')->get();
+        }
+        return view('frontend.list_post', compact('postOfIds', 'topics_info'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

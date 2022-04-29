@@ -1,4 +1,4 @@
-@section('feature_post')
+@section('feature')
     <section class="bg0">
         <div class="container">
             <div class="row m-rl--1">
@@ -19,7 +19,7 @@
 
                                 <span class="how1-child2">
                         <span class="f1-s-4 cl11">
-                            {{$posts[0]->toUser->name}}
+                            {{$posts[0]->author->name}}
                         </span>
 
                         <span class="f1-s-3 cl11 m-rl-3">

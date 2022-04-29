@@ -38,7 +38,7 @@
                                             </h5>
                                             <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId13[0]->slug])}}" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                                            {{$postOfId13[0]->toUser->name}}
+                                                            {{$postOfId13[0]->author->name}}
 														</a>
 														<span class="f1-s-3 m-rl-3">
 															-
@@ -70,7 +70,7 @@
 
                                                 <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId13[1]->slug])}}" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                                            {{$postOfId13[1]->toUser->name}}
+                                                            {{$postOfId13[1]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -103,7 +103,7 @@
 
                                                 <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId13[2]->slug])}}" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                                            {{$postOfId13[2]->toUser->name}}
+                                                            {{$postOfId13[2]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -135,7 +135,7 @@
 
                                                 <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId13[3]->slug])}}" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                                            {{$postOfId13[3]->toUser->name}}
+                                                            {{$postOfId13[3]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -192,7 +192,7 @@
 
                                             <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId26[0]->slug])}}" class="f1-s-4 cl8 hov-cl10 trans-03">
-															{{$postOfId26[0]->toUser->name}}
+															{{$postOfId26[0]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -225,7 +225,7 @@
 
                                                 <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId26[1]->slug])}}" class="f1-s-6 cl8 hov-cl10 trans-03">
-														{{$postOfId26[1]->toUser->name}}
+														{{$postOfId26[1]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -256,7 +256,7 @@
 
                                                 <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId26[2]->slug])}}" class="f1-s-6 cl8 hov-cl10 trans-03">
-															{{$postOfId26[2]->toUser->name}}
+															{{$postOfId26[2]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -287,7 +287,7 @@
 
                                                 <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId26[3]->slug])}}" class="f1-s-6 cl8 hov-cl10 trans-03">
-															{{$postOfId26[3]->toUser->name}}
+															{{$postOfId26[3]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -338,7 +338,7 @@
 
                                             <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId29[0]->slug])}}" class="f1-s-4 cl8 hov-cl10 trans-03">
-															{{$postOfId29[0]->toUser->name}}
+															{{$postOfId29[0]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -371,7 +371,7 @@
 
                                                 <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId29[1]->slug])}}" class="f1-s-6 cl8 hov-cl10 trans-03">
-														{{$postOfId29[1]->toUser->name}}
+														{{$postOfId29[1]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -402,7 +402,7 @@
 
                                                 <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId29[2]->slug])}}" class="f1-s-6 cl8 hov-cl10 trans-03">
-															{{$postOfId29[2]->toUser->name}}
+															{{$postOfId29[2]->author->name}}
 														</a>
 
 														<spa class="f1-s-3 m-rl-3">
@@ -433,7 +433,7 @@
 
                                                 <span class="cl8">
 														<a href="{{route('index.detail',['slug'=>$postOfId29[3]->slug])}}" class="f1-s-6 cl8 hov-cl10 trans-03">
-															{{$postOfId29[3]->toUser->name}}
+															{{$postOfId29[3]->author->name}}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">

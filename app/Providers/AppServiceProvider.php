@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
 use App\Models\Topic;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
@@ -27,12 +28,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        Blade::if('admin', function () {
-//            return auth()->user() ;
-//        });
-            Paginator::useBootstrap();
-
-            $menuTop = Topic::all();
-            View::share('menuTop',$menuTop);
+        Paginator::useBootstrap();
+        $menuTop = Topic::all();
+        $posts = Post::where('highlight', '=', '1')->orderBy('id', 'desc')->limit(4)->get();
+        $postNews = Post::orderBy('id', 'desc')->paginate(6);
+        View::share('menuTop', $menuTop);
+        View::share('posts', $posts);
+        View::share('postNews', $postNews);
     }
 }

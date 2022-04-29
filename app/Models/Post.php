@@ -37,7 +37,7 @@ class Post extends Model
     // belongsTo tạo kết nối đên model User
     // 1 post sẽ có 1 user
     // belongsTo là nghich đảo của thằng hasmany
-    public function toUser(){
+    public function author(){
         return $this->belongsTo(User::class,'user_id', 'id');
     }
     public function toTopic(){
